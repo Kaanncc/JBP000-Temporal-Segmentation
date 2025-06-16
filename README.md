@@ -14,7 +14,7 @@ All models are trained on individual frames and evaluated on sequences to assess
 ## Repository Structure
 
 ```
-BEP-temporalsegmentation/
+JBP000-Temporal-Segmentation/
 ├── CADICA_prepared/           # Example dataset location (can be elsewhere)
 │   └── test/
 │       ├── A/                 # Input frames
@@ -67,6 +67,26 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 pip install -r requirements.txt
 pip install pytorch-lightning
 ```
+## Data Preparation: CADICA Dataset and Surrogate Mask Generation
+
+This project utilizes the publicly available **CADICA dataset** for X-ray Coronary Angiography (XCA) sequences. The generation of surrogate ground-truth masks is a critical prerequisite for training the segmentation models.
+
+**1. CADICA Dataset (Source):**
+   - **Source:** Coronary Angiography Dataset for Invasive Coronary Assessment (CADICA) by Jiménez-Partinen et al. (2024).
+   - **Access:** You will need to obtain the raw CADICA dataset. (https://www.researchgate.net/publication/383530604_CADICA_A_new_dataset_for_coronary_artery_disease_detection_by_using_invasive_coronary_angiography)
+
+**2. Surrogate Ground-Truth Mask Generation (using DeepSA):**
+   As the raw CADICA dataset lacks comprehensive pixel-level annotations, this research employed surrogate masks generated using the **DeepSA framework**.
+
+   - **Framework:** DeepSA by Zeng et al. (2024).
+     - **Paper:** (https://pubmed.ncbi.nlm.nih.gov/39191858)
+     - **Code:** (https://github.com/newfyu/DeepSA)
+   - **Process:**
+     1. Obtain and set up the DeepSA framework according to its authors' instructions.
+     2. Use the DeepSA framework to process the raw XCA frames from the CADICA dataset to generate binary segmentation masks.
+
+**3. Final Data Organization for This Project:**
+   After processing, organize your data within a root directory named `CADICA_prepared`; and place the original XCA images into an `A` subfolder and their corresponding DeepSA-generated masks into a `B` subfolder, ensuring filenames align for pairing.
 
 ## Usage
 
